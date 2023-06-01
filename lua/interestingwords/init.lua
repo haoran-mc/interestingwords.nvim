@@ -196,7 +196,7 @@ local scroll_to_center = function()
     lines = math.abs(lines)
 
     local move_lines = function(n)
-        return math.floor(n/5)+1
+        return math.floor(n / 5) + 1
     end
 
     local each_time = function()
@@ -204,7 +204,7 @@ local scroll_to_center = function()
         local circles = 0
         while lines_bak ~= 0 do
             lines_bak = lines_bak - move_lines(lines_bak)
-            circles = circles +1
+            circles = circles + 1
         end
         local pseudo_total_time = 300 + 15 * math.min((lines - 11), 10) + lines
         return math.floor(pseudo_total_time / circles)
@@ -410,32 +410,33 @@ m.setup = function(opt)
 
     if m.config.navigation then
         vim.keymap.set("n", "n", function() m.NavigateToWord(true) end,
-            { noremap = true, silent = true })
-        vim.keymap.set("n", "N", m.NavigateToWord, { noremap = true, silent = true })
+            { noremap = true, silent = true, desc = "InterestingWord Navigation Forward" })
+        vim.keymap.set("n", "N", m.NavigateToWord,
+            { noremap = true, silent = true, desc = "InterestingWord Navigation Backword" })
     end
 
     if m.config.search_key then
         vim.keymap.set('n', m.config.search_key, function()
             m.InterestingWord('n', true)
-        end, { noremap = true, silent = true })
+        end, { noremap = true, silent = true, desc = "InterestingWord Toggle Search" })
         vim.keymap.set('x', m.config.search_key, function()
             m.InterestingWord('v', true)
-        end, { noremap = true, silent = true })
+        end, { noremap = true, silent = true, desc = "InterestingWord Toggle Search" })
         vim.keymap.set('n', m.config.cancel_search_key, function()
             m.UncolorAllWords(true)
-        end, { noremap = true, silent = true })
+        end, { noremap = true, silent = true, desc = "InterestingWord Unsearch" })
     end
 
     if m.config.color_key then
         vim.keymap.set("n", m.config.color_key, function()
             m.InterestingWord('n', false)
-        end, { noremap = true, silent = true })
+        end, { noremap = true, silent = true, desc = "InterestingWord Toggle Color" })
         vim.keymap.set("x", m.config.color_key, function()
             m.InterestingWord('v', false)
-        end, { noremap = true, silent = true })
+        end, { noremap = true, silent = true, desc = "InterestingWord Toggle Color" })
         vim.keymap.set("n", m.config.cancel_color_key, function()
             m.UncolorAllWords()
-        end, { noremap = true, silent = true })
+        end, { noremap = true, silent = true, desc = "InterestingWord Uncolor" })
     end
 
     if m.config.search_count then
