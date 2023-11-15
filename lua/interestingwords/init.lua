@@ -170,7 +170,9 @@ local display_search_count = function(word, count)
 end
 
 local hide_search_count = function(bufnr)
-    api.nvim_buf_del_extmark(bufnr, m.search_count_namespace, m.search_count_extmark_id)
+    if m.search_count_namespace then
+        api.nvim_buf_del_extmark(bufnr, m.search_count_namespace, m.search_count_extmark_id)
+    end
 end
 
 local scroll_timer = vim.loop.new_timer()
