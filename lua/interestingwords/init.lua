@@ -161,7 +161,7 @@ local display_search_count = function(word, count)
     m.search_count_extmark_id = api.nvim_buf_set_extmark(0, m.search_count_namespace, fn.line('.') - 1, 0, {
         virt_text_pos = 'eol',
         virt_text = {
-            { icon .. count, "Comment" },
+            { icon .. count, "NonText" },
         },
         hl_mode = 'combine',
     })
