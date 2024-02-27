@@ -13,6 +13,7 @@ local get_default_config = function()
         colors = { '#aeee00', '#ff0000', '#0000ff', '#b88823', '#ffa724', '#ff2c4b' },
         search_count = true,
         navigation = true,
+        scroll_center = true,
         search_key = "<leader>m",
         cancel_search_key = "<leader>M",
         color_key = "<leader>k",
@@ -267,7 +268,7 @@ m.init_search_count = function()
                 if event.match == "/" or event.match == "?" then
                     vim.defer_fn(function()
                         local searched = m.search_count(fn.getreg('/'))
-                        if searched then
+                        if searched and m.config.scroll_center then
                             scroll_to_center()
                         end
                     end, 100)
@@ -325,7 +326,7 @@ m.NavigateToWord = function(forward)
         search_flag = 'b'
     end
     local n = fn.search(word, search_flag)
-    if n ~= 0 then
+    if n ~= 0 and m.config.scroll_center then
         scroll_to_center()
     else
         vim.notify("Pattern not found: " .. filter(word))
