@@ -326,8 +326,10 @@ m.NavigateToWord = function(forward)
         search_flag = 'b'
     end
     local n = fn.search(word, search_flag)
-    if n ~= 0 and m.config.scroll_center then
-        scroll_to_center()
+    if n ~= 0 then
+        if  m.config.scroll_center then
+            scroll_to_center()
+        end
     else
         vim.notify("Pattern not found: " .. filter(word))
         return
