@@ -10,8 +10,6 @@ m.limits = {}
 local get_default_config = function()
     return {
         colors = { '#A4E57E', '#8CCBEA', '#FFDB72', '#ff0000', '#FFB3FF', '#aeee00' },
-        search_count = true,
-        navigation = true,
         color_key = "<leader>k",
         cancel_color_key = "<leader>K",
     }
@@ -248,9 +246,7 @@ m.NavigateToWord = function(forward)
         return
     end
 
-    if m.config.search_count then
-        m.search_count(word)
-    end
+    m.search_count(word)
 end
 
 m.InterestingWord = function(mode, search)
@@ -282,9 +278,7 @@ m.InterestingWord = function(mode, search)
         end
     end
 
-    if m.config.search_count then
-        m.search_count(word)
-    end
+    m.search_count(word)
 end
 
 m.UncolorAllWords = function(search)
@@ -325,12 +319,10 @@ m.setup = function(opt)
         }
     )
 
-    if m.config.navigation then
-        vim.keymap.set("n", "n", function() m.NavigateToWord(true) end,
-            { noremap = true, silent = true, desc = "InterestingWord Navigation Forward" })
-        vim.keymap.set("n", "N", m.NavigateToWord,
-            { noremap = true, silent = true, desc = "InterestingWord Navigation Backword" })
-    end
+    vim.keymap.set("n", "n", function() m.NavigateToWord(true) end,
+        { noremap = true, silent = true, desc = "InterestingWord Navigation Forward" })
+    vim.keymap.set("n", "N", m.NavigateToWord,
+        { noremap = true, silent = true, desc = "InterestingWord Navigation Backword" })
 
     if m.config.color_key then
         vim.keymap.set("n", m.config.color_key, function()
@@ -344,9 +336,7 @@ m.setup = function(opt)
         end, { noremap = true, silent = true, desc = "InterestingWord Uncolor" })
     end
 
-    if m.config.search_count then
-        m.init_search_count()
-    end
+    m.init_search_count()
 end
 
 return m
