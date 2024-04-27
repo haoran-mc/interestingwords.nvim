@@ -1,6 +1,5 @@
 local api = vim.api
 local fn = vim.fn
-local uv = vim.loop
 
 local m = {}
 
@@ -10,7 +9,7 @@ m.limits = {}
 
 local get_default_config = function()
     return {
-        colors = { '#aeee00', '#ff0000', '#0000ff', '#b88823', '#ffa724', '#ff2c4b' },
+        colors = { '#A4E57E', '#8CCBEA', '#FFDB72', '#ff0000', '#FFB3FF', '#aeee00' },
         search_count = true,
         navigation = true,
         scroll_center = true,
@@ -86,7 +85,7 @@ local get_rest_color = function()
         return nil
     end
 
-    return res[math.random(#res)]
+    return res[1]
 end
 
 local color = function(word)
@@ -99,7 +98,7 @@ local color = function(word)
     m.words[word] = {}
     m.words[word].color = color.color
     m.words[word].mid = color.mid
-    m.colors[color.color] = 0
+    m.colors[color.color] = 0  -- 标记 color 已经被使用
 
     for i = 1, fn.winnr('$') do
         pcall(function()
@@ -397,7 +396,6 @@ m.setup = function(opt)
     m.config = vim.tbl_deep_extend('force', get_default_config(), opt)
 
     init_colors()
-    math.randomseed(uv.now())
 
     local group = api.nvim_create_augroup("InterestingWordsGroup", { clear = true })
     api.nvim_create_autocmd(
